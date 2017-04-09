@@ -1,22 +1,16 @@
 {
-  "name": "electron-quick-start",
+  "name": "electron-posture",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A minimal Electron application reminding users of good posture",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
+  "repository": "https://github.com/noeltock/electron-posture",
+  "author": "Noel Tock (Starter Github)",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.6.2"
+    "electron": "~1.6.2",
+    "gulp": "^3.9.1"
   }
 }
