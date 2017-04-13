@@ -1,4 +1,111 @@
 body {
-  background:green;
-  font-size: 20px;
+  background:#fff;
+  font: caption;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+  // outline: 1px solid rgba(0,0,0,0.05)
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: 360px;
+}
+
+.header, .footer {
+  background: #F76D4D;
+  color: #fff;
+  height: 40px;
+}
+
+.header {
+  border-bottom: 1px solid darken(#F76D4D, 5%);
+  padding: 12px;
+}
+
+.content {
+  flex: auto;
+}
+
+// Button
+
+.activation {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  background: #F76D4D;
+  color: #fff;
+  font-size: 22px;
+  text-align: center;
+  line-height: 140px;
+  margin: 20px auto;
+  cursor: pointer;
+  transition: background 150ms linear;
+
+  &:hover {
+    background: lighten(#F76D4D, 10%);
+  }
+
+}
+
+// Slider - Times
+
+.interval {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px 0 2px;
+  font-weight: 800;
+  font-size: 12px;
+
+  div {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.slider {
+  padding: 0 24px;
+}
+
+// Slider - Range
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 100%;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #ededed;
+  box-shadow: inset 0 1px 1px 0 rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 1px 20px rgba(0,0,0,0.1);
+  height: 28px;
+  width: 28px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #ffffff url('../images/range-handle.png');
+  background-size: 100% 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+
 }

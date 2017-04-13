@@ -3,15 +3,47 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
-    <script>require('electron-connect').client.create()</script> 
+    <script>require('electron-connect').client.create()</script>
+
+    <script src="js/app.js"></script>
+
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="wrap">
+      <div class="header">
+        <svg width="78px" height="17px" viewBox="0 0 78 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+            <desc>Created with Sketch.</desc>
+            <defs></defs>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="24" font-family="Domus-Extrabold, Domus" letter-spacing="-0.200000003" font-weight="600">
+                <text id="Posture" fill="#FFFFFF">
+                    <tspan x="-0.551999982" y="16">Postur</tspan>
+                    <tspan x="66.096" y="16">e</tspan>
+                </text>
+            </g>
+        </svg>
+      </div>
+      <div class="content">
+        <div class="setting">
+          <div class="activation">
+            Turn on
+          </div>
+        </div>
+        <div class="setting">
+          <div class="interval">
+            <div>15m</div>
+            <div>30m</div>
+            <div>1h</div>
+            <div>2h</div>
+            <div>4h</div>
+          </div>
+          <input type="range" class="slider" min="1" max="5" step="1" />
+        </div>
+        <div class="setting"></div>
+      </div>
+      <div class="footer">Footer</div>
+    </div>
   </body>
 
   <script>

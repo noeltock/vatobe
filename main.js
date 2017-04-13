@@ -1,7 +1,12 @@
-const {app, BrowserWindow, ipcMain, Tray, nativeImage} = require('electron')
-
+const {app, BrowserWindow, ipcMain, Tray, nativeImage, powerSaveBlocker} = require('electron')
 const path = require('path')
 const url = require('url')
+
+// Remove dock
+// app.dock.hide();
+
+// Turn off throttling (move to inside function)
+powerSaveBlocker.start('prevent-app-suspension');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -62,7 +67,7 @@ app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 360,
-    height: 430,
+    height: 360,
     show: false,
     frame: false,
     resizable: false,
@@ -132,3 +137,17 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+/*
+var j = cron.schedule('*10 * * * * *', function(){
+  say.speak('Sit up straight');
+  console.log(new Date());
+});
+
+var myVar = setInterval(myTimer, 5000);
+
+function myTimer() {
+    var d = new Date();
+    console.log(d.toLocaleTimeString());
+}
+*/
