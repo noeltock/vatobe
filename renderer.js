@@ -4,73 +4,97 @@
 
 // Includes
 
-const storage = require('electron-json-storage');
-const cron = require('node-cron')
-var say = require('say')
+const storage = require('electron-json-storage')
+let say = require('say')
 
 // DOM Elements
 
-const toggle = document.querySelector('.activation')
-const range = document.querySelector(".slider");
+const toggle = document.getElementById("toggle")
+const range = document.getElementById("slider")
 
-// Grab Data & Set Range
+// State
+
+let appState = {running: false}
+
+// Grab data from JSON & Initialise Range
 
 storage.get('posture', function(error, data) {
   if (error) throw error
+  appState.interval = convertTime(parseInt(data.interval))
   range.value = data.interval
 })
 
-// Monitor Range & Save Data
+// Monitor Range & Save Data to JSON
 
 range.addEventListener('mouseup', function() {
-  const time = this.value
-  storage.set('posture', { interval: time   }, function(error) {
+  appState.interval = convertTime(parseInt(this.value))
+  storage.set('posture', { interval: this.value }, function(error) {
     if (error) throw error
   })
 })
 
 // Get interval
 
-function Reminder() {
-  var d = new Date();
-  console.log(d.toLocaleTimeString());
+function fireReminder() {
+  var d = new Date()
+  // ay.speak('Sit up straight');
+  console.log(d.toLocaleTimeString())
 }
 
-function getTime() {
+// Interpret/lookup range values to real times
 
-  let intervalValue, intervalTime
-
-  storage.get('posture', function(error, data) {
-    if (error) throw error;
-
-    intervalValue = data.interval
-    switch (intervalValue) {
-      case "1":
-      intervalTime = '*/1 * * * * *'
+function convertTime(option) {
+  switch (option) {
+    case 1:
+      return 1000
       break
-      case "2":
-      intervalTime = '*/2 * * * * *'
+    case 2:
+      return 2000
       break
-      case "3":
-      intervalTime = '*/3 * * * * *'
+    case 3:
+      return 3000
       break
-      case "4":
-      intervalTime = '*/4 * * * * *'
+    case 4:
+      return 4000
       break
-      case "5":
-      intervalTime = '*/5 * * * * *'
+    case 5:
+      return 5000
       break
-    }
-
-    return intervalTime
-  })
+  }
 }
 
 // Click event turn on/off
 
 toggle.addEventListener('click', function () {
 
-  toggle.classList.toggle('active');
+  appState.running = !appState.running
+
+  if ( appState.running ) {
+    console.log("App Start")
+    toggle.innerHTML = 'Running'
+    toggle.className = 'active'
+
+    appState.reminders = setInterval(fireReminder, appState.interval)
+    console.log(appState)
+    // Get interval, set interval
+
+    // Set Text Class
+
+  } else {
+    console.log("App End")
+    toggle.innerHTML = 'Again?'
+    toggle.className = 'inactive'
+
+    // Clear interval
+
+    clearInterval(appState.reminders)
+    appState.reminders = 0;
+
+    console.log(appState)
+    // Remove Text Class
+  }
+
+})
 
   /*console.log(toggle)
 
@@ -78,5 +102,3 @@ toggle.addEventListener('click', function () {
     // say.speak('Sit up straight');
     console.log(new Date());
   });*/
-
-})
