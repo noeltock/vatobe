@@ -9,13 +9,15 @@
   "repository": "https://github.com/noeltock/electron-posture",
   "author": "Noel Tock (Starter Github)",
   "license": "CC0-1.0",
-  "devDependencies": {
+  "dependencies": {
     "electron": "~1.6.2",
-    "electron-connect": "^0.6.1",
     "electron-json-storage": "^3.0.4",
+    "say": "^0.11.0"
+  },
+  "devDependencies": {
+    "electron-connect": "^0.6.1",
     "electron-packager": "^8.6.0",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0",
-    "node-schedule": "^1.2.1"
+    "gulp-sass": "^3.1.0"
   }
 }
