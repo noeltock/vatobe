@@ -2,15 +2,14 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-// Includes
-
-const storage = require('electron-json-storage')
-let say = require('say')
-
 // DOM Elements
 
 const toggle = document.getElementById("toggle")
 const range = document.getElementById("slider")
+
+// Includes
+const say = require('say')
+const storage = require('electron-json-storage')
 
 // State
 
@@ -37,7 +36,7 @@ range.addEventListener('mouseup', function() {
 
 function fireReminder() {
   var d = new Date()
-  // ay.speak('Sit up straight');
+  say.speak('Sit up straight mother fucker');
   console.log(d.toLocaleTimeString())
 }
 
@@ -76,7 +75,6 @@ toggle.addEventListener('click', function () {
 
     appState.reminders = setInterval(fireReminder, appState.interval)
     console.log(appState)
-    // Get interval, set interval
 
     // Set Text Class
 
@@ -95,10 +93,3 @@ toggle.addEventListener('click', function () {
   }
 
 })
-
-  /*console.log(toggle)
-
-  let j = cron.schedule( getTime(), function(){
-    // say.speak('Sit up straight');
-    console.log(new Date());
-  });*/

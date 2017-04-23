@@ -2,8 +2,7 @@ const {app, BrowserWindow, ipcMain, Tray, nativeImage, powerSaveBlocker} = requi
 const path = require('path')
 const url = require('url')
 
-// Remove dock
-// app.dock.hide();
+app.dock.hide();
 
 // Turn off throttling (move to inside function)
 powerSaveBlocker.start('prevent-app-suspension');
@@ -134,20 +133,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-/*
-var j = cron.schedule('*10 * * * * *', function(){
-  say.speak('Sit up straight');
-  console.log(new Date());
-});
-
-var myVar = setInterval(myTimer, 5000);
-
-function myTimer() {
-    var d = new Date();
-    console.log(d.toLocaleTimeString());
-}
-*/
