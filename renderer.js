@@ -55,19 +55,14 @@ function convertTime (option) {
   switch (option) {
     case 1:
       return 1000 * 60 * 15
-      break
     case 2:
       return 1000 * 60 * 30
-      break
     case 3:
       return 1000 * 60 * 60
-      break
     case 4:
       return 1000 * 60 * 120
-      break
     case 5:
       return 1000 * 60 * 240
-      break
   }
 }
 

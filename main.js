@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, Tray, nativeImage, powerSaveBlocker} = require('electron')
+const {app, BrowserWindow, ipcMain, Tray, powerSaveBlocker} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -95,8 +95,9 @@ const toggleWindow = () => {
 const showWindow = () => {
   const trayPos = tray.getBounds()
   const windowPos = mainWindow.getBounds()
-  let x, y = 0
-  if (process.platform == 'darwin') {
+  let x, y
+  y = 0
+  if (process.platform === 'darwin') {
     x = Math.round(trayPos.x + (trayPos.width / 2) - (windowPos.width / 2))
     y = Math.round(trayPos.y + trayPos.height)
   } else {
