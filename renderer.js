@@ -34,10 +34,19 @@ range.addEventListener('mouseup', function() {
 
 // Get interval
 
-function fireReminder() {
-  var d = new Date()
-  say.speak('Sit up straight mother fucker');
-  console.log(d.toLocaleTimeString())
+function fireReminder(duration) {
+  // Clear countdown if already in place
+  if ( appState.countdown > 1 ) {
+    clearInterval(appState.countdown)
+    appState.countdown = 0
+  }
+
+  // Print initial remaining time before interval
+  remainingTime(duration)
+
+  // Commennce countdown and speak once
+  countdown(duration - 1)
+  say.speak('Sit up straight mother fucker')
 }
 
 // Interpret/lookup range values to real times
@@ -48,18 +57,47 @@ function convertTime(option) {
       return 1000 * 60 * 15
       break
     case 2:
-      return 2000 * 60 * 30
+      return 1000 * 60 * 30
       break
     case 3:
-      return 3000 * 60 * 60
+      return 1000 * 60 * 60
       break
     case 4:
-      return 4000 * 60 * 120
+      return 1000 * 60 * 120
       break
     case 5:
-      return 5000 * 60 * 240
+      return 1000 * 60 * 240
       break
   }
+}
+
+// Remaining Time
+
+function remainingTime(duration) {
+  let hours, minutes, seconds
+  hours = Math.floor(duration / 3600)
+  minutes = Math.floor((duration - (hours * 3600)) / 60 )
+  seconds = Math.floor(duration - (hours * 3600) - (minutes * 60))
+
+  // Keep preceding 0's for single digits
+  hours = hours < 10 ? "0" + hours : hours
+  minutes = minutes < 10 ? "0" + minutes : minutes
+  seconds = seconds < 10 ? "0" + seconds : seconds
+
+  // Print time
+  toggle.innerHTML = hours + ":" + minutes + ":" + seconds
+}
+
+// Countdown
+
+function countdown(duration) {
+    let timer = duration
+    appState.countdown = setInterval(function () {
+        remainingTime(timer)
+        if (--timer < 0) {
+            timer = duration
+        }
+    }, 1000)
 }
 
 // Click event turn on/off
@@ -69,27 +107,21 @@ toggle.addEventListener('click', function () {
   appState.running = !appState.running
 
   if ( appState.running ) {
-    console.log("App Start")
-    toggle.innerHTML = 'Running'
+    // Start App
+    fireReminder(appState.interval/1000)
     toggle.className = 'active'
-
     appState.reminders = setInterval(fireReminder, appState.interval)
-    console.log(appState)
-
-    // Set Text Class
-
   } else {
+    // End App
     console.log("App End")
-    toggle.innerHTML = 'Again?'
+    toggle.innerHTML = 'Start'
     toggle.className = 'inactive'
 
-    // Clear interval
-
+    // Reset Timers
     clearInterval(appState.reminders)
-    appState.reminders = 0;
-
-    console.log(appState)
-    // Remove Text Class
+    appState.reminders = 0
+    clearInterval(appState.countdown)
+    appState.countdown = 0
   }
 
 })
