@@ -1,10 +1,10 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
-
 // DOM Elements
 
-const toggle = document.getElementById('toggle')
+const active = document.getElementById('active')
+const inactive = document.getElementById('inactive')
+const start = document.getElementById('start')
+const stop = document.getElementById('stop')
+const timeContainer = document.getElementById('time-remaining')
 const range = document.getElementById('slider')
 
 // Includes
@@ -46,7 +46,7 @@ function fireReminder (duration) {
 
   // Commennce countdown and speak once
   countdown(duration - 1)
-  say.speak('Sit up straight mother fucker')
+  say.speak('Sit up straight')
 }
 
 // Interpret/lookup range values to real times
@@ -69,7 +69,7 @@ function convertTime (option) {
 // Remaining Time
 
 function remainingTime (duration) {
-  let hours, minutes, seconds
+  let phrase, chars, time, hours, minutes, seconds
   hours = Math.floor(duration / 3600)
   minutes = Math.floor((duration - (hours * 3600)) / 60)
   seconds = Math.floor(duration - (hours * 3600) - (minutes * 60))
@@ -80,7 +80,15 @@ function remainingTime (duration) {
   seconds = seconds < 10 ? '0' + seconds : seconds
 
   // Print time
-  toggle.innerHTML = hours + ':' + minutes + ':' + seconds
+  time = hours + ':' + minutes + ':' + seconds
+  chars = time.split('')
+  phrase = ''
+
+  for (let i = 0; i < chars.length; i++) {
+    phrase += '<span>' + chars[i] + '</span>'
+  }
+
+  timeContainer.innerHTML = '<div class="time-remaining">' + phrase + '</div>'
 }
 
 // Countdown
@@ -95,26 +103,28 @@ function countdown (duration) {
   }, 1000)
 }
 
-// Click event turn on/off
+// Start
 
-toggle.addEventListener('click', function () {
+start.addEventListener('click', function () {
   appState.running = !appState.running
 
-  if (appState.running) {
-    // Start App
-    fireReminder(appState.interval / 1000)
-    toggle.className = 'active'
-    appState.reminders = setInterval(fireReminder, appState.interval)
-  } else {
-    // End App
-    console.log('App End')
-    toggle.innerHTML = 'Start'
-    toggle.className = 'inactive'
+  inactive.style.display = 'none'
+  active.style.display = 'block'
 
-    // Reset Timers
-    clearInterval(appState.reminders)
-    appState.reminders = 0
-    clearInterval(appState.countdown)
-    appState.countdown = 0
-  }
+  fireReminder(appState.interval / 1000)
+  appState.reminders = setInterval(fireReminder, appState.interval)
+})
+
+// Stop
+
+stop.addEventListener('click', function () {
+  appState.running = !appState.running
+
+  active.style.display = 'none'
+  inactive.style.display = 'block'
+
+  clearInterval(appState.reminders)
+  appState.reminders = 0
+  clearInterval(appState.countdown)
+  appState.countdown = 0
 })

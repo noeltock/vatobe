@@ -64,7 +64,7 @@ app.on('ready', () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 360,
-    height: 360,
+    height: 300,
     show: false,
     frame: false,
     resizable: false
