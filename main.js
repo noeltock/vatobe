@@ -2,10 +2,10 @@ const {app, BrowserWindow, ipcMain, Tray, nativeImage, powerSaveBlocker} = requi
 const path = require('path')
 const url = require('url')
 
-app.dock.hide();
+app.dock.hide()
 
 // Turn off throttling (move to inside function)
-powerSaveBlocker.start('prevent-app-suspension');
+powerSaveBlocker.start('prevent-app-suspension')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,7 +18,7 @@ function createWindow () {
     height: 430,
     show: false,
     frame: false,
-    resizable: false,
+    resizable: false
   })
 
   // and load the index.html of the app.
@@ -40,21 +40,19 @@ function createWindow () {
   })
 
   // Only close the window on blur if dev tools isn't opened
-
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-
   // Get icons
   let icon = app.getAppPath() + '/shape.png'
   tray = new Tray(icon)
 
   // Add a click handler so that when the user clicks on the menubar icon, it shows
   // our popup window
-  tray.on('click', function(event) {
+  tray.on('click', function (event) {
     toggleWindow()
 
     // Show devtools when command clicked
@@ -69,7 +67,7 @@ app.on('ready', () => {
     height: 360,
     show: false,
     frame: false,
-    resizable: false,
+    resizable: false
   })
 
   // and load the index.html of the app.
@@ -80,11 +78,10 @@ app.on('ready', () => {
   }))
 
   mainWindow.on('blur', () => {
-    if(!mainWindow.webContents.isDevToolsOpened()) {
+    if (!mainWindow.webContents.isDevToolsOpened()) {
       mainWindow.hide()
     }
   })
-
 })
 
 const toggleWindow = () => {
@@ -106,7 +103,6 @@ const showWindow = () => {
     x = Math.round(trayPos.x + (trayPos.width / 2) - (windowPos.width / 2))
     y = Math.round(trayPos.y + trayPos.height * 10)
   }
-
 
   mainWindow.setPosition(x, y, false)
   mainWindow.show()

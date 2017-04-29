@@ -18,6 +18,7 @@
     "electron-connect": "^0.6.1",
     "electron-packager": "^8.6.0",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "standard": "^10.0.2"
   }
 }

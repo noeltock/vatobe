@@ -4,8 +4,8 @@
 
 // DOM Elements
 
-const toggle = document.getElementById("toggle")
-const range = document.getElementById("slider")
+const toggle = document.getElementById('toggle')
+const range = document.getElementById('slider')
 
 // Includes
 const say = require('say')
@@ -17,7 +17,7 @@ let appState = {running: false}
 
 // Grab data from JSON & Initialise Range
 
-storage.get('posture', function(error, data) {
+storage.get('posture', function (error, data) {
   if (error) throw error
   appState.interval = convertTime(parseInt(data.interval))
   range.value = data.interval
@@ -25,18 +25,18 @@ storage.get('posture', function(error, data) {
 
 // Monitor Range & Save Data to JSON
 
-range.addEventListener('mouseup', function() {
+range.addEventListener('mouseup', function () {
   appState.interval = convertTime(parseInt(this.value))
-  storage.set('posture', { interval: this.value }, function(error) {
+  storage.set('posture', { interval: this.value }, function (error) {
     if (error) throw error
   })
 })
 
 // Get interval
 
-function fireReminder(duration) {
+function fireReminder (duration) {
   // Clear countdown if already in place
-  if ( appState.countdown > 1 ) {
+  if (appState.countdown > 1) {
     clearInterval(appState.countdown)
     appState.countdown = 0
   }
@@ -51,7 +51,7 @@ function fireReminder(duration) {
 
 // Interpret/lookup range values to real times
 
-function convertTime(option) {
+function convertTime (option) {
   switch (option) {
     case 1:
       return 1000 * 60 * 15
@@ -73,47 +73,46 @@ function convertTime(option) {
 
 // Remaining Time
 
-function remainingTime(duration) {
+function remainingTime (duration) {
   let hours, minutes, seconds
   hours = Math.floor(duration / 3600)
-  minutes = Math.floor((duration - (hours * 3600)) / 60 )
+  minutes = Math.floor((duration - (hours * 3600)) / 60)
   seconds = Math.floor(duration - (hours * 3600) - (minutes * 60))
 
   // Keep preceding 0's for single digits
-  hours = hours < 10 ? "0" + hours : hours
-  minutes = minutes < 10 ? "0" + minutes : minutes
-  seconds = seconds < 10 ? "0" + seconds : seconds
+  hours = hours < 10 ? '0' + hours : hours
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  seconds = seconds < 10 ? '0' + seconds : seconds
 
   // Print time
-  toggle.innerHTML = hours + ":" + minutes + ":" + seconds
+  toggle.innerHTML = hours + ':' + minutes + ':' + seconds
 }
 
 // Countdown
 
-function countdown(duration) {
-    let timer = duration
-    appState.countdown = setInterval(function () {
-        remainingTime(timer)
-        if (--timer < 0) {
-            timer = duration
-        }
-    }, 1000)
+function countdown (duration) {
+  let timer = duration
+  appState.countdown = setInterval(function () {
+    remainingTime(timer)
+    if (--timer < 0) {
+      timer = duration
+    }
+  }, 1000)
 }
 
 // Click event turn on/off
 
 toggle.addEventListener('click', function () {
-
   appState.running = !appState.running
 
-  if ( appState.running ) {
+  if (appState.running) {
     // Start App
-    fireReminder(appState.interval/1000)
+    fireReminder(appState.interval / 1000)
     toggle.className = 'active'
     appState.reminders = setInterval(fireReminder, appState.interval)
   } else {
     // End App
-    console.log("App End")
+    console.log('App End')
     toggle.innerHTML = 'Start'
     toggle.className = 'inactive'
 
@@ -123,5 +122,4 @@ toggle.addEventListener('click', function () {
     clearInterval(appState.countdown)
     appState.countdown = 0
   }
-
 })
