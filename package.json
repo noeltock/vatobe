@@ -12,6 +12,7 @@
   "author": "Noel Tock",
   "license": "CC0-1.0",
   "build": {
+    "appId": "com.noeltock.vatobe",
     "asar": false
   },
   "dependencies": {

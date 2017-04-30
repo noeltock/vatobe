@@ -112,7 +112,7 @@ start.addEventListener('click', function () {
   active.style.display = 'block'
 
   fireReminder(appState.interval / 1000)
-  appState.reminders = setInterval(fireReminder, appState.interval)
+  appState.reminders = setInterval(fireReminder(appState.interval / 1000), appState.interval)
 })
 
 // Stop
