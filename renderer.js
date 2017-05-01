@@ -13,7 +13,10 @@ const storage = require('electron-json-storage')
 
 // State
 
-let appState = {running: false}
+let appState = {
+  running: false,
+  interval: 900000
+}
 
 // Grab data from JSON & Initialise Range
 

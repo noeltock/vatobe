@@ -19,7 +19,7 @@ body {
   flex: auto;
   flex-direction: column;
   background: linear-gradient(to bottom, #f3a784 0%, #ed6d7e 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3a784', endColorstr='#ed6d7e',GradientType=0 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#f3a784', endColorstr='#ed6d7e',GradientType=0 );
   color: #fff;
   -webkit-font-smoothing: antialiased; }
   .content .menu {
