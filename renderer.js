@@ -37,19 +37,13 @@ range.addEventListener('mouseup', function () {
 
 // Get interval
 
-function fireReminder (duration) {
-  // Clear countdown if already in place
-  if (appState.countdown > 1) {
-    clearInterval(appState.countdown)
-    appState.countdown = 0
-  }
-
+function fireReminder () {
   // Print initial remaining time before interval
-  remainingTime(duration)
+  remainingTime(appState.interval / 1000)
 
   // Commennce countdown and speak once
-  countdown(duration - 1)
   say.speak('Sit up straight')
+  countdown((appState.interval / 1000) - 1)
 }
 
 // Interpret/lookup range values to real times
@@ -97,6 +91,7 @@ function remainingTime (duration) {
 // Countdown
 
 function countdown (duration) {
+  clearInterval(appState.countdown)
   let timer = duration
   appState.countdown = setInterval(function () {
     remainingTime(timer)
@@ -114,8 +109,11 @@ start.addEventListener('click', function () {
   inactive.style.display = 'none'
   active.style.display = 'block'
 
-  fireReminder(appState.interval / 1000)
-  appState.reminders = setInterval(fireReminder(appState.interval / 1000), appState.interval)
+  // Initial Reminder
+  fireReminder()
+
+  // Subseqeunt Reminders
+  appState.reminders = setInterval(fireReminder, appState.interval)
 })
 
 // Stop
@@ -123,11 +121,12 @@ start.addEventListener('click', function () {
 stop.addEventListener('click', function () {
   appState.running = !appState.running
 
+  // Clear all intervals
+  clearInterval(appState.countdown)
+  clearInterval(appState.reminders)
+
+  // Switch styles
   active.style.display = 'none'
   inactive.style.display = 'block'
-
-  clearInterval(appState.reminders)
-  appState.reminders = 0
-  clearInterval(appState.countdown)
-  appState.countdown = 0
+  console.log(appState)
 })
