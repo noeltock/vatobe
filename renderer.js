@@ -14,23 +14,35 @@ const storage = require('electron-json-storage')
 // State
 
 let appState = {
+  store: 'vatobe1',
   running: false,
   interval: 900000
 }
 
 // Grab data from JSON & Initialise Range
 
-storage.get('posture', function (error, data) {
+storage.has(appState.store, function (error, hasKey) {
   if (error) throw error
-  appState.interval = convertTime(parseInt(data.interval))
-  range.value = data.interval
+
+  if (hasKey) {
+    storage.get(appState.store, function (error, data) {
+      if (error) throw error
+      appState.interval = convertTime(parseInt(data.interval))
+      range.value = data.interval
+    })
+  } else {
+    range.value = 1
+    storage.set(appState.store, { interval: appState.interval }, function (error) {
+      if (error) throw error
+    })
+  }
 })
 
 // Monitor Range & Save Data to JSON
 
 range.addEventListener('mouseup', function () {
   appState.interval = convertTime(parseInt(this.value))
-  storage.set('posture', { interval: this.value }, function (error) {
+  storage.set(appState.store, { interval: this.value }, function (error) {
     if (error) throw error
   })
 })
@@ -42,7 +54,11 @@ function fireReminder () {
   remainingTime(appState.interval / 1000)
 
   // Commennce countdown and speak once
-  say.speak('Sit up straight')
+  say.speak('Sit up straight mother fucker')
+
+  //Track
+  mixpanel.track("Video play");
+
   countdown((appState.interval / 1000) - 1)
 }
 
@@ -128,5 +144,4 @@ stop.addEventListener('click', function () {
   // Switch styles
   active.style.display = 'none'
   inactive.style.display = 'block'
-  console.log(appState)
 })
