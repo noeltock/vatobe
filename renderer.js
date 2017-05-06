@@ -2,37 +2,39 @@
 
 const active = document.getElementById('active')
 const inactive = document.getElementById('inactive')
+const linkApp = document.getElementById('link-app')
+const linkQuit = document.getElementById('link-quit')
 const start = document.getElementById('start')
 const stop = document.getElementById('stop')
 const timeContainer = document.getElementById('time-remaining')
 const range = document.getElementById('slider')
 
 // Includes
+const remote = require('electron').remote;
 const say = require('say')
 const storage = require('electron-json-storage')
 
-// State
-
+// Default State
+const vatobeStorage = 'vatobe'
 let appState = {
-  store: 'vatobe1',
   running: false,
   interval: 900000
 }
 
 // Grab data from JSON & Initialise Range
 
-storage.has(appState.store, function (error, hasKey) {
+storage.has(vatobeStorage, function (error, hasKey) {
   if (error) throw error
 
   if (hasKey) {
-    storage.get(appState.store, function (error, data) {
+    storage.get(vatobeStorage, function (error, data) {
       if (error) throw error
       appState.interval = convertTime(parseInt(data.interval))
       range.value = data.interval
     })
   } else {
-    range.value = 1
-    storage.set(appState.store, { interval: appState.interval }, function (error) {
+    range.value = 2
+    storage.set(vatobeStorage, { interval: appState.interval }, function (error) {
       if (error) throw error
     })
   }
@@ -42,7 +44,7 @@ storage.has(appState.store, function (error, hasKey) {
 
 range.addEventListener('mouseup', function () {
   appState.interval = convertTime(parseInt(this.value))
-  storage.set(appState.store, { interval: this.value }, function (error) {
+  storage.set(vatobeStorage, { interval: this.value }, function (error) {
     if (error) throw error
   })
 })
@@ -56,9 +58,6 @@ function fireReminder () {
   // Commennce countdown and speak once
   say.speak('Sit up straight mother fucker')
 
-  //Track
-  mixpanel.track("Video play");
-
   countdown((appState.interval / 1000) - 1)
 }
 
@@ -67,15 +66,15 @@ function fireReminder () {
 function convertTime (option) {
   switch (option) {
     case 1:
-      return 1000 * 60 * 15
+      return 1000 * 60 * 5
     case 2:
-      return 1000 * 60 * 30
+      return 1000 * 60 * 15
     case 3:
-      return 1000 * 60 * 60
+      return 1000 * 60 * 30
     case 4:
-      return 1000 * 60 * 120
+      return 1000 * 60 * 60
     case 5:
-      return 1000 * 60 * 240
+      return 1000 * 60 * 120
   }
 }
 
@@ -144,4 +143,10 @@ stop.addEventListener('click', function () {
   // Switch styles
   active.style.display = 'none'
   inactive.style.display = 'block'
+})
+
+// Quit
+
+linkQuit.addEventListener('click', function () {
+  remote.app.quit()
 })

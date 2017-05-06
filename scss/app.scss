@@ -28,6 +28,8 @@ body {
   -webkit-font-smoothing: antialiased;
 
   .menu {
+    display: flex;
+    justify-content: space-between;
     font-weight: 800;
     background: rgba(255,255,255,0.2);
     padding: 12px;
@@ -46,7 +48,11 @@ body {
   padding: 16px 0 10px;
   background: #fff;
 }
-// Button
+// Buttons
+
+#link-app {}
+
+#link-quit {}
 
 #start {
   position: relative;
