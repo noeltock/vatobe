@@ -2,6 +2,8 @@
 
 Mac app built using electron to remind of posture.
 
+![screenshot](https://vatobe.io/img/fb_banner.png)
+
 ## Development
 
 ```bash
