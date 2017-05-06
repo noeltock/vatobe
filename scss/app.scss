@@ -30,7 +30,7 @@ body {
   .menu {
     display: flex;
     justify-content: space-between;
-    font-weight: 800;
+    font-weight: 600;
     background: rgba(255,255,255,0.2);
     padding: 7px;
     height: 40px;
@@ -91,7 +91,7 @@ body {
   line-height: 12px;
   text-align: center;
   padding: 7px 0;
-  cursor: pointer;
+  cursor: default;
   transition: all 120ms linear;
   margin: 6px auto 0;
 
