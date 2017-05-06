@@ -10,7 +10,8 @@ const timeContainer = document.getElementById('time-remaining')
 const range = document.getElementById('slider')
 
 // Includes
-const remote = require('electron').remote;
+const remote = require('electron').remote
+const shell = require('electron').shell
 const say = require('say')
 const storage = require('electron-json-storage')
 
@@ -56,7 +57,7 @@ function fireReminder () {
   remainingTime(appState.interval / 1000)
 
   // Commennce countdown and speak once
-  say.speak('Sit up straight mother fucker')
+  say.speak('Sit up straight')
 
   countdown((appState.interval / 1000) - 1)
 }
@@ -146,6 +147,10 @@ stop.addEventListener('click', function () {
 })
 
 // Quit
+
+linkApp.addEventListener('click', function () {
+  shell.openExternal('https://vatobe.io')
+})
 
 linkQuit.addEventListener('click', function () {
   remote.app.quit()

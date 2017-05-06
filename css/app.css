@@ -27,7 +27,7 @@ body {
     justify-content: space-between;
     font-weight: 800;
     background: rgba(255, 255, 255, 0.2);
-    padding: 12px;
+    padding: 7px;
     height: 40px; }
   .content .main {
     flex: auto;
@@ -38,6 +38,14 @@ body {
 .footer {
   padding: 16px 0 10px;
   background: #fff; }
+
+#link-app,
+#link-quit {
+  padding: 5px;
+  transition: all 120ms linear; }
+  #link-app:hover,
+  #link-quit:hover {
+    color: rgba(255, 255, 255, 0.5); }
 
 #start {
   position: relative;
@@ -50,7 +58,6 @@ body {
   letter-spacing: 0.03rem;
   text-align: center;
   padding: 16px 0;
-  cursor: pointer;
   transition: all 120ms linear; }
   #start:hover {
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -127,7 +134,7 @@ input[type=range]:focus {
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 10px;
-  cursor: pointer;
+  cursor: default;
   animate: 0.2s;
   background: #ededed;
   box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.1);
@@ -141,6 +148,6 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 6px;
   background: #ffffff url("../images/range-handle.png");
   background-size: 100% 100%;
-  cursor: pointer;
+  cursor: default;
   -webkit-appearance: none;
   margin-top: -11px; }
