@@ -1,6 +1,6 @@
 {
   "name": "Vatobe",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A minimal Electron application reminding users of good posture",
   "main": "main.js",
   "scripts": {
@@ -16,16 +16,16 @@
     "asar": false
   },
   "dependencies": {
-    "electron-json-storage": "^3.0.4",
-    "say": "^0.11.0"
+    "electron-json-storage": "^4.1.4",
+    "say": "^0.15.0"
   },
   "devDependencies": {
-    "electron": "~1.6.2",
-    "electron-builder": "^17.1.1",
+    "electron": "~3.0.8",
+    "electron-builder": "^20.33.2",
     "electron-connect": "^0.6.1",
-    "electron-packager": "^8.6.0",
+    "electron-packager": "^12.2.0",
     "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0",
-    "standard": "^10.0.3"
+    "gulp-sass": "^4.0.2",
+    "standard": "^12.0.1"
   }
 }

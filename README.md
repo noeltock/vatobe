@@ -14,6 +14,13 @@ $ npm install
 $ gulp
 ```
 
+### Upgrading npm modules
+```
+npm i -g npm-check-updates
+ncu -u
+npm install
+```
+
 ## Packaging
 
 **Preparation**
@@ -24,9 +31,10 @@ $ gulp
 $ standard
 $ standard --fix
 ```
+
 - Clean NPM modules:
 ```bash
-$ yarn clean
+$ yarn autoclean --force
 ```
 
 **Build**
