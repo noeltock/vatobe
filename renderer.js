@@ -1,5 +1,4 @@
 // DOM Elements
-
 const active = document.getElementById('active')
 const inactive = document.getElementById('inactive')
 const linkApp = document.getElementById('link-app')
@@ -56,10 +55,40 @@ function fireReminder () {
   // Print initial remaining time before interval
   remainingTime(appState.interval / 1000)
 
-  // Commennce countdown and speak once
-  say.speak('Sit up straight')
+  // TODO: make this configurable
+  // Commence countdown and speak once
+  // say.speak('Sit up straight')
+  // TODO: make this configurable
+  displayNotification()
 
   countdown((appState.interval / 1000) - 1)
+}
+
+function displayNotification () {
+  new Notification('Sit up straight',
+    {
+      body: getBenefitMessage(),
+      silent: true
+    })
+}
+
+function getBenefitMessage () {
+  const benefitMessages = [
+    'Good posture keeps bones and joints in the correct alignment so that muscles are being used properly.',
+    'Good posture helps decrease the abnormal wearing of joint surfaces.',
+    'Good posture decreases the stress on the ligaments holding the joints of the spine together.',
+    'Good posture prevents the spine from becoming fixed in abnormal positions.',
+    'Good posture prevents fatigue because muscles are being used more efficiently, allowing the body to use less energy.',
+    'Good posture prevents backache and muscular pain.',
+    'Good posture contributes to a good appearance.',
+    'Good posture improves muscle flexibility.',
+    'Good posture improves motion in the joints.',
+    'Good posture strengthens postural muscles.',
+    'Good posture balances muscles on both sides of the spine.',
+    'Good posture builds awareness of your own posture.'
+  ]
+
+  return benefitMessages[Math.floor(Math.random() * benefitMessages.length)]
 }
 
 // Interpret/lookup range values to real times

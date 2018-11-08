@@ -7,6 +7,10 @@ Mac app built using electron to remind of posture, [website](https://vatobe.io) 
 ## Development
 
 ```bash
+$ npm install
+```
+
+```bash
 $ gulp
 ```
 
