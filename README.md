@@ -2,12 +2,23 @@
 
 Mac app built using electron to remind of posture, [website](https://vatobe.io) here.
 
-![screenshot](https://vatobe.io/img/fb_banner.png)
+![screenshot](build/vatobe_screenshot.png)
 
 ## Development
 
 ```bash
+$ npm install
+```
+
+```bash
 $ gulp
+```
+
+### Upgrading npm modules
+```
+npm i -g npm-check-updates
+ncu -u
+npm install
 ```
 
 ## Packaging
@@ -20,9 +31,10 @@ $ gulp
 $ standard
 $ standard --fix
 ```
+
 - Clean NPM modules:
 ```bash
-$ yarn clean
+$ yarn autoclean --force
 ```
 
 **Build**

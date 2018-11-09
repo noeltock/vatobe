@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, Tray, powerSaveBlocker} = require('electron')
+const { app, BrowserWindow, ipcMain, Tray, powerSaveBlocker } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -29,7 +29,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools(
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -57,7 +57,7 @@ app.on('ready', () => {
 
     // Show devtools when command clicked
     if (mainWindow.isVisible() && process.defaultApp && event.metaKey) {
-      mainWindow.openDevTools({mode: 'detach'})
+      mainWindow.openDevTools({ mode: 'detach' })
     }
   })
 
