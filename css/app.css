@@ -104,7 +104,7 @@ body {
 #active {
   display: none; }
 
-.interval-title {
+.title {
   padding: 0 24px 6px;
   font-size: 11px;
   color: #bbb; }
@@ -122,6 +122,16 @@ body {
 
 #slider {
   padding: 0 24px; }
+
+.setting label {
+  font-weight: 600;
+  font-size: 12px;
+  color: #555;
+}
+
+input[type=checkbox] {
+  margin-left: 24px;
+}
 
 input[type=range] {
   -webkit-appearance: none;

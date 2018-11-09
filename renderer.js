@@ -7,6 +7,8 @@ const start = document.getElementById('start')
 const stop = document.getElementById('stop')
 const timeContainer = document.getElementById('time-remaining')
 const range = document.getElementById('slider')
+const speak = document.getElementById('speak')
+const notification = document.getElementById('notification')
 
 // Includes
 const remote = require('electron').remote
@@ -14,57 +16,86 @@ const shell = require('electron').shell
 const say = require('say')
 const storage = require('electron-json-storage')
 
-// Default State
+// Default state
 const vatobeStorage = 'vatobe'
 let appState = {
   running: false,
-  interval: 900000
+  interval: 900000,
+  speak: true,
+  notification: false
 }
 
-// Grab data from JSON & Initialise Range
+// Persists app state to local storage
+function storeSettings () {
+  storage.set(vatobeStorage, appState, function (error) {
+    if (error) throw error
+  })
+}
 
+// Loads app state from local storage
+function loadSettings () {
+  storage.get(vatobeStorage, function (error, data) {
+    if (error) throw error
+    // load storage into app stage
+    appState = data
+    // match UI to the stored settings
+    range.value = data.interval
+    speak.checked = data.speak
+    notification.checked = data.notification
+  })
+}
+
+// Grab data from JSON & initialise settings
 storage.has(vatobeStorage, function (error, hasKey) {
   if (error) throw error
 
   if (hasKey) {
-    storage.get(vatobeStorage, function (error, data) {
-      if (error) throw error
-      appState.interval = convertTime(parseInt(data.interval))
-      range.value = data.interval
-    })
+    loadSettings()
   } else {
+    // default UI settings
     range.value = 2
-    storage.set(vatobeStorage, { interval: appState.interval }, function (error) {
-      if (error) throw error
-    })
+    speak.checked = true
+    notification.checked = false
+    storeSettings()
   }
 })
 
-// Monitor Range & Save Data to JSON
-
+// Monitor settings & save data to JSON
 range.addEventListener('mouseup', function () {
   appState.interval = convertTime(parseInt(this.value))
-  storage.set(vatobeStorage, { interval: this.value }, function (error) {
-    if (error) throw error
-  })
+  storeSettings()
+})
+
+speak.addEventListener('click', function () {
+  appState.speak = this.checked
+  storeSettings()
+})
+
+notification.addEventListener('click', function () {
+  appState.notification = this.checked
+  storeSettings()
 })
 
 // Get interval
-
 function fireReminder () {
   // Print initial remaining time before interval
   remainingTime(appState.interval / 1000)
 
-  // TODO: make this configurable
-  // Commence countdown and speak once
-  // say.speak('Sit up straight')
-  // TODO: make this configurable
-  displayNotification()
+  // remind of posture
+  if (appState.speak) { spokenReminder() }
+  if (appState.notification) { visualReminder() }
 
+  // Commence countdown
   countdown((appState.interval / 1000) - 1)
 }
 
-function displayNotification () {
+function spokenReminder () {
+  console.log('say.speak()')
+  say.speak('Sit up straight')
+}
+
+function visualReminder () {
+  console.log('notification')
   new Notification('Sit up straight',
     {
       body: getBenefitMessage(),
@@ -92,7 +123,6 @@ function getBenefitMessage () {
 }
 
 // Interpret/lookup range values to real times
-
 function convertTime (option) {
   switch (option) {
     case 1:
@@ -109,7 +139,6 @@ function convertTime (option) {
 }
 
 // Remaining Time
-
 function remainingTime (duration) {
   let phrase, chars, time, hours, minutes, seconds
   hours = Math.floor(duration / 3600)
@@ -134,7 +163,6 @@ function remainingTime (duration) {
 }
 
 // Countdown
-
 function countdown (duration) {
   clearInterval(appState.countdown)
   let timer = duration
@@ -147,7 +175,6 @@ function countdown (duration) {
 }
 
 // Start
-
 start.addEventListener('click', function () {
   appState.running = !appState.running
 
@@ -157,12 +184,11 @@ start.addEventListener('click', function () {
   // Initial Reminder
   fireReminder()
 
-  // Subseqeunt Reminders
+  // Subsequent Reminders
   appState.reminders = setInterval(fireReminder, appState.interval)
 })
 
 // Stop
-
 stop.addEventListener('click', function () {
   appState.running = !appState.running
 
@@ -176,7 +202,6 @@ stop.addEventListener('click', function () {
 })
 
 // Quit
-
 linkApp.addEventListener('click', function () {
   shell.openExternal('https://vatobe.io')
 })
